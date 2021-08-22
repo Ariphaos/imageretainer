@@ -1,0 +1,23 @@
+{
+  "name": "imageretainer",
+  "title": "Compendium Image Retainer",
+  "description": "Provides a means to back up and restore your custom compendium images, with option to reassert them on game system update.",
+  "author": "Ariphaos",
+  "version": "0.1.0",
+  "minimumCoreVersion": "0.8.9",
+  "compatibleCoreVersion": "0.8.9",
+  "dependencies": [
+  ],
+  "esmodules": [
+    "./main.js",
+    "./backup.js",
+    "./buttons.js"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ]
+}

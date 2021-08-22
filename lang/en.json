@@ -1,0 +1,18 @@
+{
+  "imageretainer.cancel": "Cancel",
+  "imageretainer.settings.systemOnly.title": "System Compendiums Only",
+  "imageretainer.settings.systemOnly.description": "Only backup from or restore to system compendiums. Somewhat cleaner and safer.",
+  "imageretainer.settings.ignoreSVG.title": "Ignore Foundry SVG Images",
+  "imageretainer.settings.ignoreSVG.description": "Whether to ignore foundry's default SVGs when doing backups. If you want to check if the current system is using any external art, you may wish to turn this off.",
+  "imageretainer.restore.title": "Restore Image Paths?",
+  "imageretainer.restore.description": "This will restore your custom images from backup. It may take a while.",
+  "imageretainer.restore.newVersion": "A new game system version has been detected. Run restore? This may take a while. If you cancel, you can still run the restoration manually.",
+  "imageretainer.restore.run": "Run Restore",
+  "imageretainer.backup.title": "Backup Image Paths?",
+  "imageretainer.backup.description": "This will store your custom images so Image Retainer can restore them after you update your game system. It may take a while.",
+  "imageretainer.backup.run": "Run Backup",
+  "imageretainer.notify.startRestore": "Image Retainer: Starting restore, this may take some time.",
+  "imageretainer.notify.finishRestore": "Image Retainer: Finished restore!",
+  "imageretainer.notify.startBackup": "Image Retainer: Starting backup, this may take a some time.",
+  "imageretainer.notify.finishBackup": "Image Retainer: Finished backup!"
+}
