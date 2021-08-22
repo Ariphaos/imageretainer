@@ -6,6 +6,11 @@
   "version": "0.1.0",
   "minimumCoreVersion": "0.8.9",
   "compatibleCoreVersion": "0.8.9",
+  "manifest": "https://raw.githubusercontent.com/Ariphaos/imageretainer/master/module.json",
+  "url": "https://github.com/Ariphaos/imageretainer",
+  "license": "MIT",
+  "bugs": "https://github.com/Ariphaos/imageretainer/issues",
+  "readme": "https://github.com/Ariphaos/imageretainer#compendium-image-retainer",
   "dependencies": [
   ],
   "esmodules": [
