@@ -7,6 +7,7 @@
   "minimumCoreVersion": "0.8.9",
   "compatibleCoreVersion": "0.8.9",
   "manifest": "https://raw.githubusercontent.com/Ariphaos/imageretainer/master/module.json",
+  "download": "https://github.com/Ariphaos/imageretainer/releases/download/0.1.0/imageretainer-0.1.0.zip",
   "url": "https://github.com/Ariphaos/imageretainer",
   "license": "MIT",
   "bugs": "https://github.com/Ariphaos/imageretainer/issues",
