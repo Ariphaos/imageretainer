@@ -5,7 +5,8 @@ Hooks.on('renderCompendiumDirectory', function (app, html) {
     return;
 
   html.find(".directory-footer")
-    .prepend(`<div class="action-buttons flexrow"><button id="btn-imageretainer"><i class="fas fa-upload"> </i> Restore Image Paths</div>`)
+    .prepend(`<div class="action-buttons flexrow"><button id="btn-imageretainer"><i class="fas fa-upload"> </i> `
+      + game.i18n.localize('imageretainer.restore.name') +`</div>`)
     .promise()
     .done(() => {
       $('#btn-imageretainer').on('click', () => {
@@ -33,7 +34,8 @@ Hooks.on('renderCompendiumDirectory', function (app, html) {
     });
 
   html.find(".directory-footer")
-    .prepend(`<div class="action-buttons flexrow"><button id="btn-imageretainer"><i class="fas fa-save"> </i> Backup Image Paths</div>`)
+    .prepend(`<div class="action-buttons flexrow"><button id="btn-imageretainer"><i class="fas fa-save"> </i> `
+      + game.i18n.localize('imageretainer.backup.name') +`</div>`)
     .promise()
     .done(() => {
       $('#btn-imageretainer').on('click', () => {

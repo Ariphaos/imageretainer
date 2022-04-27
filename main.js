@@ -38,6 +38,15 @@ async function init() {
     type: Boolean
   });
 
+  game.settings.register(MODULE_NAME, "ignoreFoundry", {
+    name: game.i18n.localize('imageretainer.settings.ignoreFoundry.title'),
+    hint: game.i18n.localize('imageretainer.settings.ignoreFoundry.description'),
+    config: true,
+    default: true,
+    scope: "world",
+    type: Boolean
+  });
+
   FilePicker.browse("data", MODULE_NAME).catch(reason => FilePicker.createDirectory("data", MODULE_NAME));
   FilePicker.browse("data", path).catch(reason => FilePicker.createDirectory("data", path));
 

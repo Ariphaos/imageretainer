@@ -8,12 +8,13 @@ async function exportPack(outPack, type) {
   const actors = await pack.getDocuments();
   const mappedImages = actors.map(a => {
     let systemPath = 'systems/' + game.system.id + '/';
-    if ((game.settings.get(MODULE_NAME, "ignoreSVG") && a.img.substr(0, 10) === "icons/svg/") ||
-      a.img.substr(0, systemPath.length) === systemPath) return;
+    if (game.settings.get(MODULE_NAME, "ignoreSVG") && a.img.substr(0, 10) === "icons/svg/") return;
+    if (game.settings.get(MODULE_NAME, "ignoreFoundry") && a.img.substr(0, 6) === "icons/" && a.img.substr(0, 10) !== "icons/svg/") return;
+    if (a.img.substr(0, systemPath.length) === systemPath) return;
 
     switch (type) {
       case 'Actor':
-        return ({id: a.id, img: a.img, data: { token:{ img: a.data.token.img, randomImg: a.data.token.randomImg, scale: a.data.token.scale}}})
+        return ({id: a.id, img: a.img, data: { token: { img: a.data.token.img, randomImg: a.data.token.randomImg, scale: a.data.token.scale}}})
       case 'Item':
         return ({id: a.id, img: a.img});
     }
@@ -78,6 +79,7 @@ async function getFiles() {
 
 async function restorePaths() {
   ui.notifications.info(game.i18n.localize('imageretainer.notify.startRestore'));
+  ChatMessage.create({content: game.i18n.localize('imageretainer.notify.startRestore') });
 
   let files = await getFiles();
 
@@ -86,11 +88,13 @@ async function restorePaths() {
   }
 
   ui.notifications.info(game.i18n.localize('imageretainer.notify.finishRestore'));
+  ChatMessage.create({content: game.i18n.localize('imageretainer.notify.finishRestore') });
 }
 
 async function backupPaths() {
 
   ui.notifications.info(game.i18n.localize('imageretainer.notify.startBackup'));
+  ChatMessage.create({content: game.i18n.localize('imageretainer.notify.startBackup') });
 
   const actorPacks = game.packs.filter(pack => {
     if (game.settings.get(MODULE_NAME, "systemOnly")) {
@@ -119,6 +123,7 @@ async function backupPaths() {
   }
 
   ui.notifications.info(game.i18n.localize('imageretainer.notify.finishBackup'));
+  ChatMessage.create({content: game.i18n.localize('imageretainer.notify.finishBackup') });
 }
 
 export { restorePaths, backupPaths, getFiles };
