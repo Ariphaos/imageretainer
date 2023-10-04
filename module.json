@@ -23,7 +23,7 @@
   ],
   "id": "imageretainer",
   "compatibility": {
-    "minimum": "9",
+    "minimum": "10",
     "verified": "11"
   }
 }

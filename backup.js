@@ -7,7 +7,6 @@ async function exportPack(outPack, type) {
   const pack = game.packs.get(outPack);
   const actors = await pack.getDocuments();
   const mappedImages = actors.map(a => {
-    let systemPath = 'systems/' + game.system.id + '/';
     if (game.settings.get(MODULE_NAME, "ignoreSVG") && a.img.substring(0, 10) === "icons/svg/") return;
     if (game.settings.get(MODULE_NAME, "ignoreFoundry") && a.img.substring(0, 6) === "icons/" && a.img.substring(0, 10) !== "icons/svg/") return;
     if (a.img.substring(0, 8) === "systems/") return;
@@ -15,7 +14,7 @@ async function exportPack(outPack, type) {
 
     switch (type) {
       case 'Actor':
-        return ({id: a.id, img: a.img, data: { token: { img: a.data.token.img, randomImg: a.data.token.randomImg, scale: a.data.token.scale}}})
+        return ({id: a.id, img: a.img, prototypeToken: { randomImg: a.prototypeToken.randomImg, texture: a.prototypeToken.texture }})
       case 'Item':
         return ({id: a.id, img: a.img});
     }
@@ -33,12 +32,38 @@ async function importMapping(gamePack) {
   try {
     let response = await fetch(filePath), updates;
     let updateData = await response.json();
-    console.log(updateData);
+    // console.log(updateData);
     const pack = game.packs.get(gamePack);
 
     switch (pack.documentName) {
       case 'Actor':
-        updates = updateData.map(a => ({_id: a.id, img: a.img, token: { img: a.data.token.img, randomImg: a.data.token.randomImg, scale: a.data.token.scale }}));
+        updates = updateData.map(a =>{
+          if (a.hasOwnProperty("data")) {
+            // Old version import
+            return {
+              _id: a.id,
+              img: a.img,
+              prototypeToken: {
+                randomImg: a.data.token.randomImg,
+                texture: {
+                  src: a.data.token.img,
+                  scaleX: a.data.token.scale,
+                  scaleY: a.data.token.scale
+                }
+              }
+            };
+          }
+          else if (a.hasOwnProperty("prototypeToken")) {
+            return {
+              _id: a.id,
+              img: a.img,
+              prototypeToken: {
+                randomImg: a.prototypeToken.randomImg,
+                texture: a.prototypeToken.texture
+              }
+            };
+          }
+        });
         break;
       case 'Item':
         updates = updateData.map(a => ({_id: a.id, img: a.img}));
@@ -47,7 +72,11 @@ async function importMapping(gamePack) {
         console.log('Unsupported compendium type: ' + pack.documentName);
     }
     if (updates) {
-      await pack.configure({locked: false});
+      let relockPack = false;
+      if (pack.locked) {
+        await pack.configure({locked: false});
+        relockPack = true;
+      }
       await pack.getDocuments();
       switch (pack.documentName) {
         case 'Actor':
@@ -57,7 +86,9 @@ async function importMapping(gamePack) {
           await Item.updateDocuments(updates, {pack: gamePack});
           break;
       }
-      await pack.configure({locked: true});
+      if (relockPack) {
+        await pack.configure({locked: true});
+      }
       //ui.notifications.info(`Image Retainer: ${gamePack} imported.`);
     }
 
