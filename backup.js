@@ -79,7 +79,7 @@ async function getFiles() {
 
 async function restorePaths() {
   ui.notifications.info(game.i18n.localize('imageretainer.notify.startRestore'));
-  ChatMessage.create({content: game.i18n.localize('imageretainer.notify.startRestore') });
+  await ChatMessage.create({content: game.i18n.localize('imageretainer.notify.startRestore') });
 
   let files = await getFiles();
 
@@ -88,17 +88,17 @@ async function restorePaths() {
   }
 
   ui.notifications.info(game.i18n.localize('imageretainer.notify.finishRestore'));
-  ChatMessage.create({content: game.i18n.localize('imageretainer.notify.finishRestore') });
+  await ChatMessage.create({ content: game.i18n.localize('imageretainer.notify.finishRestore') });
 }
 
 async function backupPaths() {
 
   ui.notifications.info(game.i18n.localize('imageretainer.notify.startBackup'));
-  ChatMessage.create({content: game.i18n.localize('imageretainer.notify.startBackup') });
+  await ChatMessage.create({content: game.i18n.localize('imageretainer.notify.startBackup') });
 
-  const actorPacks = game.packs.filter(pack => {
+  const actorPacks = game.packs.filter((pack) => {
     if (game.settings.get(MODULE_NAME, "systemOnly")) {
-      return pack.metadata.package === game.system.id && pack.documentName === "Actor";
+      return pack.metadata.packageName === game.system.id && pack.metadata.packageType === "system" && pack.documentName === "Actor";
     }
     else {
       return pack.documentName === "Actor";
@@ -109,9 +109,9 @@ async function backupPaths() {
     await exportPack(pack.collection, pack.documentName);
   }
 
-  const itemPacks = game.packs.filter(pack => {
+  const itemPacks = game.packs.filter((pack) => {
     if (game.settings.get(MODULE_NAME, "systemOnly")) {
-      return pack.metadata.package === game.system.id && pack.documentName === "Item";
+      return pack.metadata.packageName === game.system.id && pack.metadata.packageType === "system" && pack.documentName === "Item";
     }
     else {
       return pack.documentName === "Item";
@@ -123,7 +123,7 @@ async function backupPaths() {
   }
 
   ui.notifications.info(game.i18n.localize('imageretainer.notify.finishBackup'));
-  ChatMessage.create({content: game.i18n.localize('imageretainer.notify.finishBackup') });
+  await ChatMessage.create({content: game.i18n.localize('imageretainer.notify.finishBackup') });
 }
 
 export { restorePaths, backupPaths, getFiles };

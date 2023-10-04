@@ -15,7 +15,7 @@ async function init() {
     name: "Last System Version",
     hint: "Used to reapply images.",
     config: false,
-    default: game.system.data.version,
+    default: game.system.version,
     scope: "world",
     type: String
   });
@@ -54,8 +54,8 @@ async function init() {
 
   console.log('Image retainer detected ' + files.length + ' patch files in ' + path);
 
-  if (files.length && game.system.data.version !== game.settings.get(MODULE_NAME, "systemVersion")) {
-    console.log('System version change detected. System Version: ' + game.system.data.version + ' Last Seen: ' + game.settings.get(MODULE_NAME, "systemVersion"));
+  if (files.length && game.system.version !== game.settings.get(MODULE_NAME, "systemVersion")) {
+    console.log('System version change detected. System Version: ' + game.system.version + ' Last Seen: ' + game.settings.get(MODULE_NAME, "systemVersion"));
     let d = new Dialog({
       title: game.i18n.localize('imageretainer.restore.title'),
       content: "<p>" + game.i18n.localize('imageretainer.restore.newVersion') +"</p>",
@@ -74,7 +74,7 @@ async function init() {
       default: "run",
       render: () => {},
       close: () => {
-        game.settings.set(MODULE_NAME, "systemVersion", game.system.data.version);
+        game.settings.set(MODULE_NAME, "systemVersion", game.system.version);
       }
     });
     d.render(true);

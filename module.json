@@ -1,29 +1,29 @@
 {
-  "name": "imageretainer",
   "title": "Compendium Image Retainer",
   "description": "Provides a means to back up and restore your custom compendium images, with option to reassert them on game system update.",
-  "author": "Ariphaos",
-  "version": "0.1.1",
-  "minimumCoreVersion": "0.8.9",
-  "compatibleCoreVersion": "9.9999",
+  "version": "0.1.2",
   "manifest": "https://raw.githubusercontent.com/Ariphaos/imageretainer/master/module.json",
-  "download": "https://github.com/Ariphaos/imageretainer/releases/download/0.1.1/imageretainer-0.1.1.zip",
+  "download": "https://github.com/Ariphaos/imageretainer/releases/download/0.1.2/imageretainer-0.1.2.zip",
   "url": "https://github.com/Ariphaos/imageretainer",
   "license": "MIT",
   "bugs": "https://github.com/Ariphaos/imageretainer/issues",
   "readme": "https://github.com/Ariphaos/imageretainer#compendium-image-retainer",
-  "dependencies": [
-  ],
   "esmodules": [
-    "./main.js",
-    "./backup.js",
-    "./buttons.js"
+    "main.js",
+    "backup.js",
+    "buttons.js"
   ],
   "languages": [
     {
       "lang": "en",
       "name": "English",
-      "path": "lang/en.json"
+      "path": "lang/en.json",
+      "flags": {}
     }
-  ]
+  ],
+  "id": "imageretainer",
+  "compatibility": {
+    "minimum": "9",
+    "verified": "11"
+  }
 }
