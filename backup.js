@@ -8,9 +8,10 @@ async function exportPack(outPack, type) {
   const actors = await pack.getDocuments();
   const mappedImages = actors.map(a => {
     let systemPath = 'systems/' + game.system.id + '/';
-    if (game.settings.get(MODULE_NAME, "ignoreSVG") && a.img.substr(0, 10) === "icons/svg/") return;
-    if (game.settings.get(MODULE_NAME, "ignoreFoundry") && a.img.substr(0, 6) === "icons/" && a.img.substr(0, 10) !== "icons/svg/") return;
-    if (a.img.substr(0, systemPath.length) === systemPath) return;
+    if (game.settings.get(MODULE_NAME, "ignoreSVG") && a.img.substring(0, 10) === "icons/svg/") return;
+    if (game.settings.get(MODULE_NAME, "ignoreFoundry") && a.img.substring(0, 6) === "icons/" && a.img.substring(0, 10) !== "icons/svg/") return;
+    if (a.img.substring(0, 8) === "systems/") return;
+    if (a.img.substring(0, 8) === "modules/") return;
 
     switch (type) {
       case 'Actor':
