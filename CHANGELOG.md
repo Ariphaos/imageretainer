@@ -1,5 +1,9 @@
 ## Changelog
 
+### 2023-10-7
+
+* Shouldn't error out trying to make a directory tree now.
+
 ### 2023-10-3
 
 * Been awhile... 

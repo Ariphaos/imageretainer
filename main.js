@@ -47,11 +47,8 @@ async function init() {
     type: Boolean
   });
 
-  FilePicker.browse("data", MODULE_NAME).catch(reason => FilePicker.createDirectory("data", MODULE_NAME));
-  FilePicker.browse("data", path).catch((reason) => {
-    FilePicker.browse("data", MODULE_NAME).catch(reason => FilePicker.createDirectory("data", MODULE_NAME));
-    FilePicker.createDirectory("data", path);
-  });
+  await FilePicker.browse("data", MODULE_NAME).catch(() => FilePicker.createDirectory("data", MODULE_NAME));
+  await FilePicker.browse("data", path).catch(() => FilePicker.createDirectory("data", path));
 
   let files = await getFiles();
 
