@@ -109,9 +109,18 @@ async function getFiles() {
   return files;
 }
 
+async function notifyStatus(message) {
+  ui.notifications.info(game.i18n.localize(message));
+  ChatMessage.create({
+    speaker: {alias: MODULE_NAME + ' Notification'},
+    content: game.i18n.localize(message),
+    whisper: [game.user.id],
+    timestamp: Date.now()
+  });
+}
+
 async function restorePaths() {
-  ui.notifications.info(game.i18n.localize('imageretainer.notify.startRestore'));
-  await ChatMessage.create({content: game.i18n.localize('imageretainer.notify.startRestore') });
+  await notifyStatus('imageretainer.notify.startRestore');
 
   let files = await getFiles();
 
@@ -119,14 +128,11 @@ async function restorePaths() {
     await importMapping(file.split('/').slice(-1)[0].slice(0,-5));
   }
 
-  ui.notifications.info(game.i18n.localize('imageretainer.notify.finishRestore'));
-  await ChatMessage.create({ content: game.i18n.localize('imageretainer.notify.finishRestore') });
+  await notifyStatus('imageretainer.notify.finishRestore');
 }
 
 async function backupPaths() {
-
-  ui.notifications.info(game.i18n.localize('imageretainer.notify.startBackup'));
-  await ChatMessage.create({content: game.i18n.localize('imageretainer.notify.startBackup') });
+  await notifyStatus('imageretainer.notify.startBackup');
 
   const actorPacks = game.packs.filter((pack) => {
     if (game.settings.get(MODULE_NAME, "systemOnly")) {
@@ -154,8 +160,7 @@ async function backupPaths() {
     await exportPack(pack.collection, pack.documentName);
   }
 
-  ui.notifications.info(game.i18n.localize('imageretainer.notify.finishBackup'));
-  await ChatMessage.create({content: game.i18n.localize('imageretainer.notify.finishBackup') });
+  await notifyStatus('imageretainer.notify.finishBackup');
 }
 
 export { restorePaths, backupPaths, getFiles };
